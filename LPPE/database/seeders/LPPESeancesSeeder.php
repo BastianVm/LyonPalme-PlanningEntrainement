@@ -12,6 +12,6 @@ class LPPESeancesSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        LPPESeances::factory()->count(10)->create();
     }
 }

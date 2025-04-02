@@ -12,6 +12,6 @@ class LPPEPlanningsSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        LPPEPlannings::factory()->count(10)->create();
     }
 }

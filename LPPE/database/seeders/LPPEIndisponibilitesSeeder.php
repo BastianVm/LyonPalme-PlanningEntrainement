@@ -12,6 +12,6 @@ class LPPEIndisponibilitesSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        LPPEIndisponibilites::factory()->count(10)->create();
     }
 }

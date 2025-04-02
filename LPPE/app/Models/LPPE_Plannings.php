@@ -9,4 +9,9 @@ class LPPE_Plannings extends Model
 {
     /** @use HasFactory<\Database\Factories\LPPEPlanningsFactory> */
     use HasFactory;
+    protected $fillable = [
+        'id_planning',
+        'id_seance',
+        'id_entraineur',
+    ];
 }
