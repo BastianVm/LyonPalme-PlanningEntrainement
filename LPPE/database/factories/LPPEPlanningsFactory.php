@@ -17,7 +17,9 @@ class LPPEPlanningsFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'id_planning' => $this->faker->unique()->numberBetween(1, 1000),
+            'date_création' => $this->faker->date(),
+            'id_responsable' => $this->faker->numberBetween(1, 100)
         ];
     }
 }
