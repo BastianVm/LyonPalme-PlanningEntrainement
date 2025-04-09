@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LPPE_Seances extends Model
 {
-    /** @use HasFactory<\Database\Factories\LPPESeancesFactory> */
+    /** @use HasFactory<\Database\Factories\LPPESeancesFactory> **/
     use HasFactory;
     protected $fillable = [
         'id_seance',
