@@ -20,6 +20,7 @@ class LPPE_EntraineursFactory extends Factory
             'nom' => $this->faker->lastname(),
             'prenom' => $this->faker->firstName(),
             'email' => $this->faker->unique()->safeEmail(),
+            'telephone' => $this->faker->phoneNumber(),
             'identifiant' => $this->faker->unique()->userName(),
             'mdp' => $this->faker->password(),
             'rôle' => $this->faker->randomElement(['admin', 'user'])

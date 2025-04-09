@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\LPPE_Seances;
 
 class LPPESeancesSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class LPPESeancesSeeder extends Seeder
      */
     public function run(): void
     {
-        LPPESeances::factory()->count(10)->create();
+        LPPE_Seances::factory()->count(10)->create();
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\LPPE_Indisponibilites;
 
 class LPPEIndisponibilitesSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class LPPEIndisponibilitesSeeder extends Seeder
      */
     public function run(): void
     {
-        LPPEIndisponibilites::factory()->count(10)->create();
+        LPPE_Indisponibilites::factory()->count(10)->create();
     }
 }

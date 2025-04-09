@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('nom');
             $table->text('prenom');
             $table->text('email');
+            $table->text('telephone');
             $table->text('identifiant');
             $table->text('mdp');
             $table->text('rôle');
