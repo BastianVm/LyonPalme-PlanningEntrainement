@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LPPE_Indisponibilites extends Model
 {
-    /** @use HasFactory<\Database\Factories\LPPEIndisponibilitesFactory> */
+    /** @use HasFactory<\Database\Factories\LPPEIndisponibilitesFactory> **/
     use HasFactory;
     protected $fillable = [
         'id_indispo',

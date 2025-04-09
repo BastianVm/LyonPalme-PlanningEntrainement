@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LPPE_Entraineurs extends Model
 {
+    /** @use HasFactory<\Database\Factories\LPPEEntraineursFactory> */
     use HasFactory;
     protected $fillable = [
         'nom',
