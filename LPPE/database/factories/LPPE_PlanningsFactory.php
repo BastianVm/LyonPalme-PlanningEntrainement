@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\LPPE_Plannings>
  */
-class LPPEPlanningsFactory extends Factory
+class LPPE_PlanningsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,9 @@ class LPPEPlanningsFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_planning' => $this->faker->unique()->numberBetween(1, 1000),
+            'id_planning' => $this->faker->unique()->numberBetween(1, 10),
             'date_création' => $this->faker->date(),
-            'id_responsable' => $this->faker->numberBetween(1, 100)
+            'id_responsable' => $this->faker->numberBetween(1, 10)
         ];
     }
 }
