@@ -17,10 +17,10 @@ class LPPE_EntraineursFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom' => $this->faker->lastname(),
-            'prenom' => $this->faker->firstName(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'telephone' => $this->faker->phoneNumber(),
+            'nom' => Crypt::encryptString($this->faker->lastname()),
+            'prenom' => Crypt::encryptString($this->faker->firstName()),
+            'email' =>  Crypt::encryptString($this->faker->unique()->safeEmail()),
+            'telephone' =>  Crypt::encryptString($this->faker->phoneNumber()),
             'identifiant' => $this->faker->unique()->userName(),
             'mdp' => $this->faker->password(),
             'rôle' => $this->faker->randomElement(['admin', 'user'])
