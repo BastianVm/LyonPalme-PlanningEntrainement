@@ -13,6 +13,6 @@ class LPPEEntraineursSeeder extends Seeder
      */
     public function run(): void
     {
-        LPPEEntraineurs::factory(10)->create();
+        LPPE_Entraineurs::factory(10)->create();
     }
 }
