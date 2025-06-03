@@ -17,7 +17,6 @@ class LPPE_SeancesFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_seance' => $this->faker->unique()->numberBetween(1, 10),
             'date_seance' => $this->faker->date(),
             'heure_debut' => $this->faker->time(),
             'heure_fin' => $this->faker->time(),

@@ -9,6 +9,11 @@ class LPPE_Entraineurs extends Model
 {
     /** @use HasFactory<\Database\Factories\LPPEEntraineursFactory> */
     use HasFactory;
+    
+    protected $primaryKey = 'id_entraineur';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    
     protected $fillable = [
         'nom',
         'prenom',
@@ -16,6 +21,6 @@ class LPPE_Entraineurs extends Model
         'telephone',
         'identifiant',
         'mdp',
-        'role'
+        'rôle'
     ];
 }

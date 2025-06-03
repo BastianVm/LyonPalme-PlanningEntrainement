@@ -9,8 +9,11 @@ class LPPE_Seances extends Model
 {
     /** @use HasFactory<\Database\Factories\LPPESeancesFactory> **/
     use HasFactory;
+    protected $primaryKey = 'id_seance';
+    public $incrementing = true;
+    protected $keyType = 'int';
+    
     protected $fillable = [
-        'id_seance',
         'date_seance',
         'heure_debut',
         'heure_fin',

@@ -9,8 +9,11 @@ class LPPE_Indisponibilites extends Model
 {
     /** @use HasFactory<\Database\Factories\LPPEIndisponibilitesFactory> **/
     use HasFactory;
+    protected $primaryKey = 'id_indispo';
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
-        'id_indispo',
         'motif',
         'statut',
         'id_entraineur',

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +12,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Entraîneurs
+        $entraineurs = \App\Models\LPPE_Entraineurs::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Bastian',
-            'email' => 'bastian@example.com',
-        ]);
+        // 2. Users (liés aux entraîneurs)
+        foreach ($entraineurs as $entraineur) {
+            \App\Models\User::factory()->create([
+                'id_entraineur' => $entraineur->id_entraineur,
+    ]);
+}
+        // 3. Plannings (besoin d'entraineurs)
+        $this->call(LPPEPlanningsSeeder::class);
+        // 4. Séances (besoin de plannings et d'entraineurs)
+        $this->call(LPPESeancesSeeder::class);
+        // 5. Indisponibilités (besoin de séances et d'entraineurs)
+        $this->call(LPPEIndisponibilitesSeeder::class);
     }
 }

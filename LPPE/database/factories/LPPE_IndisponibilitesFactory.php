@@ -17,7 +17,6 @@ class LPPE_IndisponibilitesFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_indispo' => $this->faker->unique()->numberBetween(1, 10),
             'motif' => $this->faker->sentence(),
             'statut' => $this->faker->randomElement(['active', 'inactive']),
             'id_entraineur' => $this->faker->numberBetween(1, 10),
