@@ -1,0 +1,1 @@
+<img src="{{ asset('images/LyonPalme.png') }}" alt="Logo Lyon Palme" {{ $attributes }} />

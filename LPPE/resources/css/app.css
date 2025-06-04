@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.logo-dashboard {
+    width: 110px !important;
+    height: 70px !important;
+}
+
+.logo-forms {
+    width: 175px !important;
+    height: 100px !important;
+}

@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
         // 2. Users (liés aux entraîneurs)
         foreach ($entraineurs as $entraineur) {
             \App\Models\User::factory()->create([
+                'name' => $entraineur->prenom . ' ' . $entraineur->nom,
+                'email' => $entraineur->email,
+                'password' => $entraineur->mdp,
                 'id_entraineur' => $entraineur->id_entraineur,
     ]);
 }
