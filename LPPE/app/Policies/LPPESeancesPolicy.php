@@ -13,7 +13,7 @@ class LPPESeancesPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class LPPESeancesPolicy
      */
     public function view(User $user, LPPE_Seances $lPPESeances): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,15 +29,15 @@ class LPPESeancesPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->entraineur && strtolower(trim($user->entraineur->rôle)) === 'admin';
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, LPPE_Seances $lPPESeances): bool
+    public function update(User $user, LPPE_Seances $seance): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class LPPESeancesPolicy
      */
     public function delete(User $user, LPPE_Seances $lPPESeances): bool
     {
-        return false;
+        return $user->entraineur && strtolower(trim($user->entraineur->rôle)) === 'admin';
     }
 
     /**

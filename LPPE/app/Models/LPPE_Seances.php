@@ -9,6 +9,7 @@ class LPPE_Seances extends Model
 {
     /** @use HasFactory<\Database\Factories\LPPESeancesFactory> **/
     use HasFactory;
+    protected $table = 'l_p_p_e__seances';
     protected $primaryKey = 'id_seance';
     public $incrementing = true;
     protected $keyType = 'int';
@@ -20,4 +21,14 @@ class LPPE_Seances extends Model
         'id_planning',
         'id_entraineur',
     ];
+
+     public function entraineur()
+    {
+        return $this->belongsTo(User::class, 'id_entraineur');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id_seance';
+    }
 }

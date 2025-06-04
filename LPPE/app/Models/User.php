@@ -46,4 +46,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+        public function entraineur()
+    {
+        return $this->belongsTo(LPPE_Entraineurs::class, 'id_entraineur', 'id_entraineur');
+    }
+
+    // vérifie le rôle
+    public function hasRole($role)
+    {
+        return $this->entraineur && strtolower(trim($this->entraineur->rôle)) === strtolower($role);
+    }
 }
