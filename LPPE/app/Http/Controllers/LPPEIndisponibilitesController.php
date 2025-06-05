@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLPPE_IndisponibilitesRequest;
 use App\Http\Requests\UpdateLPPE_IndisponibilitesRequest;
 use App\Models\LPPE_Indisponibilites;
+use Illuminate\Http\Request;
 
 class LPPEIndisponibilitesController extends Controller
 {
@@ -21,15 +22,32 @@ class LPPEIndisponibilitesController extends Controller
      */
     public function create()
     {
-        //
+        // Récupère les entraînements où l'utilisateur est responsable
+        $entrainements = \App\Models\LPPE_Entrainement::where('id_entraineur', auth()->user()->id_entraineur)->get();
+        return view('indisponibilites.create', compact('entrainements'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLPPE_IndisponibilitesRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_entrainement' => 'required|exists:l_p_p_e__entrainements,id_entrainement',
+            'motif' => 'required|string',
+        ]);
+
+        $entrainement = \App\Models\LPPE_Entrainement::findOrFail($request->id_entrainement);
+
+        \App\Models\LPPE_Indisponibilites::create([
+            'id_entrainement' => $request->id_entrainement,
+            'id_entraineur' => auth()->user()->id_entraineur,
+            'motif' => $request->motif,
+            'statut' => 'en attente',
+            'id_seance' => $entrainement->id_seance,
+        ]);
+
+        return redirect()->route('entrainements.index')->with('success', 'Indisponibilité signalée.');
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\LPPESeancesController;
 use App\Http\Controllers\LPPEEntrainementController;
+use App\Http\Controllers\LPPEIndisponibilitesController;
 use App\Models\LPPE_Seances;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+Route::get('/indisponibilites/create', [LPPEIndisponibilitesController::class, 'create'])->name('indisponibilites.create');
+Route::post('/indisponibilites', [LPPEIndisponibilitesController::class, 'store'])->name('indisponibilites.store');
 // Affichage de la liste : accessible à tous (ou tous les connectés)
 Route::get('/entrainements', [LPPEEntrainementController::class, 'index'])->name('entrainements.index');
 

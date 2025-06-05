@@ -26,14 +26,19 @@
     </table>
 
     @auth
-        @if(auth()->user()->hasRole('admin'))
-            <div style="position: fixed; bottom: 20px; left: 20px;">
+        <div style="position: fixed; bottom: 20px; left: 20px; display: flex; gap: 10px;">
+            @if(auth()->user()->hasRole('admin'))
                 <a href="{{ route('entrainements.create') }}">
                     <button style="padding: 10px 20px; background: #3490dc; color: white; border: none; border-radius: 5px; cursor: pointer;">
                         Créer un entraînement
                     </button>
                 </a>
-            </div>
-        @endif
+            @endif
+            <form method="GET" action="{{ route('indisponibilites.create') }}">
+                <button type="submit" style="padding: 10px 20px; background: #38c172; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Signaler une indisponibilité
+                </button>
+            </form>
+        </div>
     @endauth
 @endsection
