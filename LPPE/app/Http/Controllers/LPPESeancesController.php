@@ -115,4 +115,17 @@ class LPPESeancesController extends Controller
 
         return redirect()->route('seances.index')->with('success', 'Séance modifiée !');
     }
+
+    public function parPeriode(Request $request)
+    {
+        $debut = $request->input('debut');
+        $fin = $request->input('fin');
+        $seances = null;
+
+        if ($debut && $fin) {
+            $seances = \App\Models\LPPE_Seances::whereBetween('date_seance', [$debut, $fin])->get();
+        }
+
+        return view('seances.par_periode', compact('seances', 'debut', 'fin'));
+    }
 }

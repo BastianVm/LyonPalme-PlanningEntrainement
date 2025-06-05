@@ -26,8 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+Route::get('/seances/periode', [LPPESeancesController::class, 'parPeriode'])->name('seances.parPeriode');
 Route::get('/planning', [PlanningController::class, 'index'])->name('planning.index');
 Route::resource('seances', LPPESeancesController::class);
-
 Route::post('/seances/update/{id}', [LPPESeancesController::class, 'updateDirect'])->name('seances.updateDirect');
+
 require __DIR__.'/auth.php';

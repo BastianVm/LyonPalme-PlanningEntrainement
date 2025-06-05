@@ -2,7 +2,10 @@
 
 @section('content')
     <h1>Planning des entraînements</h1>
-    
+
+    <a href="{{ route('seances.parPeriode') }}" style="display:inline-block;padding:8px 16px;background:#007bff;color:#fff;border-radius:4px;text-decoration:none;margin-bottom:15px;">
+        Filtrer par période
+    </a>
         <table border="1" cellpadding="5">
         <thead>
             <tr>
