@@ -1,0 +1,39 @@
+@extends('layouts.app')
+
+@section('content')
+    <h1>Liste des entraînements</h1>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Séance</th>
+                <th>Entraîneur</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($entrainements as $entrainement)
+                <tr>
+                    <td>{{ $entrainement->titre }}</td>
+                    <td>{{ $entrainement->description }}</td>
+                    <td>{{ $entrainement->id_seance }}</td>
+                    <td>
+                        {{ $entrainement->entraineur ? $entrainement->entraineur->nom ?? $entrainement->entraineur->name ?? 'Nom inconnu' : 'Non défini' }}
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    @auth
+        @if(auth()->user()->hasRole('admin'))
+            <div style="position: fixed; bottom: 20px; left: 20px;">
+                <a href="{{ route('entrainements.create') }}">
+                    <button style="padding: 10px 20px; background: #3490dc; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Créer un entraînement
+                    </button>
+                </a>
+            </div>
+        @endif
+    @endauth
+@endsection

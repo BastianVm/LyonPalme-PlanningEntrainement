@@ -18,6 +18,9 @@
                     <x-nav-link :href="url('/planning')" :active="request()->is('planning')">
                         Planning
                     </x-nav-link>
+                    <x-nav-link :href="route('entrainements.index')" :active="request()->routeIs('entrainements.*')">
+                        {{ __('Entraînements') }}
+                    </x-nav-link>
                 </div>
             </div>
             @if(auth()->user() && auth()->user()->hasRole('admin'))

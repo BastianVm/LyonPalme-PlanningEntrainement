@@ -30,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LPPESeancesSeeder::class);
         // 5. Indisponibilités (besoin de séances et d'entraineurs)
         $this->call(LPPEIndisponibilitesSeeder::class);
+        $this->call(LPPEEntrainementsTableSeeder::class);
     }
 }

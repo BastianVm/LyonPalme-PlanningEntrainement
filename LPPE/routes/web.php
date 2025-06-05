@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\LPPESeancesController;
+use App\Http\Controllers\LPPEEntrainementController;
 use App\Models\LPPE_Seances;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     });
+});
+
+// Affichage de la liste : accessible à tous (ou tous les connectés)
+Route::get('/entrainements', [LPPEEntrainementController::class, 'index'])->name('entrainements.index');
+
+// Création : accessible seulement aux admins
+Route::middleware(['auth'])->group(function () {
+    Route::get('/entrainements/create', [LPPEEntrainementController::class, 'create'])->name('entrainements.create');
+    Route::post('/entrainements', [LPPEEntrainementController::class, 'store'])->name('entrainements.store');
 });
 
 Route::get('/seances/periode', [LPPESeancesController::class, 'parPeriode'])->name('seances.parPeriode');
