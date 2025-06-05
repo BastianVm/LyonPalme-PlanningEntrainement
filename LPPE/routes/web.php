@@ -28,6 +28,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/indisponibilites', [LPPEIndisponibilitesController::class, 'adminIndex'])->name('admin.indisponibilites.index');
+    Route::put('/admin/indisponibilites/{id}', [LPPEIndisponibilitesController::class, 'adminUpdate'])->name('admin.indisponibilites.update');
+});
+
 Route::get('/indisponibilites/create', [LPPEIndisponibilitesController::class, 'create'])->name('indisponibilites.create');
 Route::post('/indisponibilites', [LPPEIndisponibilitesController::class, 'store'])->name('indisponibilites.store');
 // Affichage de la liste : accessible à tous (ou tous les connectés)

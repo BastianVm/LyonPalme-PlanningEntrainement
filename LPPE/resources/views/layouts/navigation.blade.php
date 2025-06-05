@@ -28,6 +28,11 @@
                     Accès admin
                 </x-nav-link>
             @endif
+            @if(auth()->check() && auth()->user()->hasRole('admin'))
+                <x-nav-link :href="route('admin.indisponibilites.index')" :active="request()->routeIs('admin.indisponibilites.index')">
+                    Gestion indisponibilités
+                </x-nav-link>
+            @endif
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

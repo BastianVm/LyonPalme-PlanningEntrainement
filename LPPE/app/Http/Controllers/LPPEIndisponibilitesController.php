@@ -81,4 +81,26 @@ class LPPEIndisponibilitesController extends Controller
     {
         //
     }
+    public function adminIndex()
+    {
+        if (!auth()->check() || !auth()->user()->hasRole('admin')) {
+            abort(403, 'Accès réservé à l\'administrateur.');
+        }
+
+        $indisponibilites = \App\Models\LPPE_Indisponibilites::with(['entraineur', 'entrainement', 'seance'])->get();
+        return view('indisponibilites.admin_index', compact('indisponibilites'));
+    }
+
+    public function adminUpdate(Request $request, $id)
+    {
+        if (!auth()->check() || !auth()->user()->hasRole('admin')) {
+            abort(403, 'Accès réservé à l\'administrateur.');
+        }
+
+        $indispo = \App\Models\LPPE_Indisponibilites::findOrFail($id);
+        $indispo->statut = $request->statut;
+        $indispo->save();
+
+        return redirect()->route('admin.indisponibilites.index')->with('success', 'Indisponibilité mise à jour.');
+    }
 }
