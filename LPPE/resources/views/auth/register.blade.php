@@ -1,4 +1,8 @@
 <x-guest-layout>
+    <div class="flex flex-col items-center justify-center mb-8">
+        <x-application-logo style="width:450px; height:auto; margin-bottom: 2rem;" />
+    </div>
+    
     <form method="POST" action="{{ route('register') }}">
         @csrf
 

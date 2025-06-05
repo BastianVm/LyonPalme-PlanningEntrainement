@@ -1,9 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Liste des entraînements') }}
-        </h2>
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="text-align: center; margin-top: 30px;">
+        {{ __('Liste des entraînements') }}
+    </h2>
+
+    <!-- FullCalendar -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js'></script>
+    <div id='calendar' style="margin-bottom: 40px;"></div>
+    
+    <div id='calendar' style="margin-bottom: 40px;"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                events: [
+                    @foreach($entrainements as $entrainement)
+                        @if(isset($entrainement->seance['date_seance']) && $entrainement->seance['date_seance'])
+                        {
+                            title: @json($entrainement->titre),
+                            start: @json($entrainement->seance['date_seance']),
+                        },
+                        @endif
+                    @endforeach
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+
+    <!-- Table et boutons en dessous -->
     <table border="1" cellpadding="5" cellspacing="0">
         <thead>
             <tr>
@@ -28,7 +57,7 @@
     </table>
 
     @auth
-        <div style="position: fixed; bottom: 20px; left: 20px; display: flex; gap: 10px;">
+        <div style="margin-top: 30px; display: flex; gap: 10px;">
             @if(auth()->user()->hasRole('admin'))
                 <a href="{{ route('entrainements.create') }}">
                     <button style="padding: 10px 20px; background: #3490dc; color: white; border: none; border-radius: 5px; cursor: pointer;">
