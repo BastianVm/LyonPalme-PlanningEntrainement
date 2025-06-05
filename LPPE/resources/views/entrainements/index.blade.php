@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Liste des entraînements</h1>
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Liste des entraînements') }}
+        </h2>
     <table border="1" cellpadding="5" cellspacing="0">
         <thead>
             <tr>
@@ -37,6 +39,11 @@
             <form method="GET" action="{{ route('indisponibilites.create') }}">
                 <button type="submit" style="padding: 10px 20px; background: #38c172; color: white; border: none; border-radius: 5px; cursor: pointer;">
                     Signaler une indisponibilité
+                </button>
+            </form>
+            <form method="GET" action="{{ route('indisponibilites.proposerEchangeForm') }}">
+                <button type="submit" style="padding: 10px 20px; background: #ffb300; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Proposer un échange
                 </button>
             </form>
         </div>

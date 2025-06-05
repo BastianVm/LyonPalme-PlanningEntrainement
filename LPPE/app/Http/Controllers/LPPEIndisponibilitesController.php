@@ -87,7 +87,7 @@ class LPPEIndisponibilitesController extends Controller
             abort(403, 'Accès réservé à l\'administrateur.');
         }
 
-        $indisponibilites = \App\Models\LPPE_Indisponibilites::with(['entraineur', 'entrainement', 'seance'])->get();
+        $indisponibilites = \App\Models\LPPE_Indisponibilites::with(['entraineur', 'remplacant' , 'entrainement', 'seance'])->get();
         return view('indisponibilites.admin_index', compact('indisponibilites'));
     }
 
@@ -98,9 +98,121 @@ class LPPEIndisponibilitesController extends Controller
         }
 
         $indispo = \App\Models\LPPE_Indisponibilites::findOrFail($id);
+        $ancienStatut = $indispo->statut;
         $indispo->statut = $request->statut;
+
+        if ($request->statut === 'refusée') {
+            $indispo->statut = 'en attente';
+            $indispo->id_entraineur_remplacant = null;
+        }
+
         $indispo->save();
 
-        return redirect()->route('admin.indisponibilites.index')->with('success', 'Indisponibilité mise à jour.');
+        if ($request->statut === 'validée' && $indispo->id_entraineur_remplacant) {
+            // Séance de l'indisponibilité
+            $seanceA = $indispo->seance;
+            $entraineurA = $seanceA->id_entraineur;
+            $entraineurB = $indispo->id_entraineur_remplacant;
+
+            // Trouver une séance du remplaçant (hors celle déjà concernée)
+            $seanceB = \App\Models\LPPE_Seances::where('id_entraineur', $entraineurB)
+                ->where('id_seance', '!=', $seanceA->id_seance)
+                ->orderBy('date_seance', 'asc')
+                ->first();
+
+            if ($seanceB) {
+                // Échanger les entraîneurs dans les séances
+                $seanceA->id_entraineur = $entraineurB;
+                $seanceA->save();
+
+                $seanceB->id_entraineur = $entraineurA;
+                $seanceB->save();
+
+                // Échanger aussi dans les entraînements liés
+                $entrainementA = $seanceA->entrainement;
+                $entrainementB = $seanceB->entrainement;
+
+                // Si l'entraînement n'existe pas, on le crée
+                if (!$entrainementA) {
+                    $entrainementA = new \App\Models\LPPE_Entrainement();
+                    $entrainementA->id_seance = $seanceA->id_seance;
+                    $entrainementA->id_entraineur = $entraineurB;
+                    $entrainementA->titre = 'Entraînement généré'; // adapte si besoin
+                    $entrainementA->save();
+                } else {
+                    $entrainementA->id_entraineur = $entraineurB;
+                    $entrainementA->save();
+                }
+
+                if (!$entrainementB) {
+                    $entrainementB = new \App\Models\LPPE_Entrainement();
+                    $entrainementB->id_seance = $seanceB->id_seance;
+                    $entrainementB->id_entraineur = $entraineurA;
+                    $entrainementB->titre = 'Entraînement généré'; // adapte si besoin
+                    $entrainementB->save();
+                } else {
+                    $entrainementB->id_entraineur = $entraineurA;
+                    $entrainementB->save();
+                }
+
+                $message = 'Échange réciproque effectué entre les deux entraîneurs.';
+            } else {
+                // Pas de séance à échanger pour le remplaçant
+                $seanceA->id_entraineur = $entraineurB;
+                $seanceA->save();
+
+                $entrainementA = $seanceA->entrainement;
+                if (!$entrainementA) {
+                    $entrainementA = new \App\Models\LPPE_Entrainement();
+                    $entrainementA->id_seance = $seanceA->id_seance;
+                    $entrainementA->id_entraineur = $entraineurB;
+                    $entrainementA->titre = 'Entraînement généré'; // adapte si besoin
+                    $entrainementA->save();
+                } else {
+                    $entrainementA->id_entraineur = $entraineurB;
+                    $entrainementA->save();
+                }
+                $message = 'Aucune séance trouvée pour le remplaçant à échanger. Seule la séance initiale a été modifiée.';
+            }
+        } else {
+            $message = 'Indisponibilité mise à jour.';
+        }
+
+        return redirect()->route('admin.indisponibilites.index')->with('success', $message);
+    }
+    public function proposerEchangeForm()
+    {
+        $indispos = \App\Models\LPPE_Indisponibilites::whereIn('statut', ['en attente', 'validée'])
+            ->with(['entraineur', 'seance.entrainement'])
+            ->get();
+
+        return view('indisponibilites.proposer_echange', compact('indispos'));
+    }
+
+    public function proposerEchange($id)
+    {
+        $indispo = \App\Models\LPPE_Indisponibilites::findOrFail($id);
+
+        // On n'enregistre que si aucun remplaçant n'est déjà proposé
+        if (is_null($indispo->id_entraineur_remplacant)) {
+            $indispo->id_entraineur_remplacant = auth()->user()->id_entraineur;
+            $indispo->save();
+            return redirect()->back()->with('success', 'Votre proposition d\'échange a été prise en compte.');
+        } else {
+            return redirect()->back()->with('error', 'Un remplaçant a déjà été proposé pour cette indisponibilité.');
+        }
+    }
+
+        public function adminValider($id)
+    {
+        if (!auth()->check() || !auth()->user()->hasRole('admin')) {
+            abort(403, 'Accès réservé à l\'administrateur.');
+        }
+
+        $indispo = \App\Models\LPPE_Indisponibilites::findOrFail($id);
+        $indispo->statut = 'validée';
+        $indispo->save();
+
+        return redirect()->route('admin.indisponibilites.index')->with('success', 'L\'échange a été validé.');
     }
 }

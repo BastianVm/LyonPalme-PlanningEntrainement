@@ -31,4 +31,9 @@ class LPPE_Seances extends Model
     {
         return 'id_seance';
     }
+
+    public function entrainement()
+    {
+        return $this->hasOne(\App\Models\LPPE_Entrainement::class, 'id_seance', 'id_seance');
+    }
 }

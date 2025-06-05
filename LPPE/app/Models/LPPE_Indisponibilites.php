@@ -40,4 +40,9 @@ class LPPE_Indisponibilites extends Model
     {
         return $this->hasOne(\App\Models\LPPE_Entrainement::class, 'id_seance', 'id_seance');
     }
+
+    public function remplacant()
+    {
+        return $this->belongsTo(\App\Models\LPPE_Entraineurs::class, 'id_entraineur_remplacant', 'id_entraineur');
+    }
 }

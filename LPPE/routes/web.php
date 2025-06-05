@@ -28,13 +28,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+Route::post('/admin/indisponibilites/{id}/valider', [App\Http\Controllers\LPPEIndisponibilitesController::class, 'adminValider'])->name('indisponibilites.adminValider');
+
+Route::get('/indisponibilites/proposer-echange', [LPPEIndisponibilitesController::class, 'proposerEchangeForm'])->name('indisponibilites.proposerEchangeForm');
+Route::post('/indisponibilites/{id}/proposer-echange', [App\Http\Controllers\LPPEIndisponibilitesController::class, 'proposerEchange'])->name('indisponibilites.proposerEchange');
+
+//Proposition d'échange d'indisponibilité
+Route::post('/indisponibilites/{id}/proposer-echange', [\App\Http\Controllers\LPPEIndisponibilitesController::class, 'proposerEchange'])
+    ->name('indisponibilites.proposerEchange')
+    ->middleware('auth');
+
+//Gestion des indisponibilités Admin
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/indisponibilites', [LPPEIndisponibilitesController::class, 'adminIndex'])->name('admin.indisponibilites.index');
     Route::put('/admin/indisponibilites/{id}', [LPPEIndisponibilitesController::class, 'adminUpdate'])->name('admin.indisponibilites.update');
 });
 
+// Gestion des indisponibilités Création
 Route::get('/indisponibilites/create', [LPPEIndisponibilitesController::class, 'create'])->name('indisponibilites.create');
 Route::post('/indisponibilites', [LPPEIndisponibilitesController::class, 'store'])->name('indisponibilites.store');
+
 // Affichage de la liste : accessible à tous (ou tous les connectés)
 Route::get('/entrainements', [LPPEEntrainementController::class, 'index'])->name('entrainements.index');
 
