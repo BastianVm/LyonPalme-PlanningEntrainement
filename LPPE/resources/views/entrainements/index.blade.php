@@ -1,4 +1,3 @@
-<!-- resources/views/entrainements/index.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -31,13 +30,25 @@
         });
     </script>
 
-    <div class="table-container">
-        <table class="table">
+    <style>
+        .btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; color: #fff; display: inline-block; }
+        .btn-primary { background: #0275d8; }
+        .btn-violet { background: #6f2da8; }
+        .btn-blue-light { background: #00b4d8; }
+        .btn-warning { background: #f0ad4e; }
+        .btn-success { background: #5cb85c; }
+        .btn:hover { opacity: 0.85; }
+    </style>
+
+    <div class="table-container" style="overflow-x:auto;">
+        <table class="table" style="min-width: 900px; text-align: center;">
             <thead>
                 <tr>
                     <th>Titre</th>
                     <th>Description</th>
-                    <th>Séance</th>
+                    <th>Date</th>
+                    <th>Heure début</th>
+                    <th>Heure fin</th>
                     <th>Entraîneur</th>
                     <th>Google Agenda</th>
                 </tr>
@@ -45,12 +56,25 @@
             <tbody>
                 @foreach($entrainements as $entrainement)
                     <tr>
-                        <td>{{ $entrainement->titre }}</td>
-                        <td>{{ $entrainement->description }}</td>
+                        <td style="max-width: 180px; word-break: break-word;">{{ $entrainement->titre }}</td>
+                        <td style="max-width: 220px; word-break: break-word;">{{ $entrainement->description }}</td>
                         <td>
                             @if($entrainement->seance)
-                                {{ $entrainement->seance->date_seance }}<br>
-                                {{ $entrainement->seance->heure_debut }} - {{ $entrainement->seance->heure_fin }}
+                                {{ $entrainement->seance->date_seance }}
+                            @else
+                                <span style="color: #aaa;">—</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($entrainement->seance)
+                                {{ $entrainement->seance->heure_debut }}
+                            @else
+                                <span style="color: #aaa;">—</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($entrainement->seance)
+                                {{ $entrainement->seance->heure_fin }}
                             @else
                                 <span style="color: #aaa;">—</span>
                             @endif
@@ -60,7 +84,6 @@
                         </td>
                         <td>
                             @php
-                                // Vérifie si l'utilisateur connecté est l'entraîneur de cet entraînement
                                 $user = Auth::user();
                                 $isMyEntrainement = $user && $user->id_entraineur && $entrainement->id_entraineur == $user->id_entraineur;
                                 $googleUrl = '';
@@ -105,15 +128,18 @@
                 </a>
             @endif
             <form method="GET" action="{{ route('indisponibilites.create') }}">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-violet">
                     Signaler une indisponibilité
                 </button>
             </form>
             <form method="GET" action="{{ route('indisponibilites.proposerEchangeForm') }}">
-                <button type="submit" class="btn btn-warning">
+                <button type="submit" class="btn btn-blue-light">
                     Proposer un échange
                 </button>
             </form>
+            <a href="{{ route('seances.parPeriode') }}" class="btn btn-violet">
+                Filtrer par période
+            </a>
         </div>
     @endauth
 
