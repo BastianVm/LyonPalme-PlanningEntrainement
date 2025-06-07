@@ -63,7 +63,7 @@ L’application est développée avec Laravel, en utilisant une base de données
 
 ### Base de données
 
-![Schéma relationnel](public/images/schema-relationnel.png)
+![Schéma relationnel](LPPE/public/images/schema-relationnel.png)
 
 ---
 
