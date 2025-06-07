@@ -55,23 +55,15 @@ L’application est développée avec Laravel, en utilisant une base de données
 
 ---
 
-## Diagrammes & Schémas
+## Diagrammes & Base de données
 
 ### Diagramme de cas d'utilisation
 
 ![Use_case](https://github.com/user-attachments/assets/9aa65e37-8154-4c9b-ba74-5fb09e90291a)
 
-### Diagramme de séquence
+### Base de données
 
-![Diagramme_Séquence_LPPE](https://github.com/user-attachments/assets/a6c25b6a-1fb0-408e-8100-efcaa4e54c3a)
-
-### Schéma relationnel
-
-![Schéma relationnel](https://github.com/user-attachments/assets/8ebd1682-a903-4ac8-869c-bde2fbc0bcca)
-
-### Diagramme de classe
-
-![Diagramme de classe](https://github.com/user-attachments/assets/1767429a-8e40-4e1f-b6c6-b12c89ec8838)
+![Schéma relationnel](public/images/schema-relationnel.png)
 
 ---
 
@@ -80,9 +72,9 @@ L’application est développée avec Laravel, en utilisant une base de données
 - **PHP** >= 8.1
 - **Composer**
 - **Node.js** & **NPM**
-- **MariaDB** (ou MySQL)
+- **MariaDB** 
 - **Apache 2**
-- **Debian** (recommandé)
+- **Debian** 
 - **Git**
 
 ---
@@ -91,44 +83,53 @@ L’application est développée avec Laravel, en utilisant une base de données
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/Fatih471/planningentrainements.git
+   git clone https://github.com/pseudoauteur/nomduprojet.git
    cd planningentrainements
    ```
+2. **Droits fichiers**
+   Puis vous devez vous placer dans le projet et accorder les droits à deux fichiers en utilisant les commandes ci-dessous. Assurez-vous de remplacer "votreusername" par votre nom d'utilisateur sur votre machine :
 
-2. **Installer les dépendances PHP**
+   ```xml
+   sudo chown -R votreusername:www-data bootstrap/cache/
+   sudo chown -R votreusername:www-data storage
+   sudo chmod -R 755 bootstrap/cache/
+   sudo chmod -R 755 storage/
+   ```
+
+3. **Installer les dépendances PHP**
    ```bash
    composer install
    ```
 
-3. **Installer les dépendances front-end**
+4. **Installer les dépendances front-end**
    ```bash
    npm install
    npm run build
    ```
 
-4. **Configurer l’environnement**
-   - Copier le fichier `.env.example` en `.env`
+5. **Configurer l’environnement**
+   - Rennomer le fichier `.env.example` en `.env`
    - Modifier les variables de connexion à la base de données :
      ```
-     DB_CONNECTION=mysql
+     DB_CONNECTION=mariadb
      DB_HOST=127.0.0.1
      DB_PORT=3306
-     DB_DATABASE=planning_lyonpalme
+     DB_DATABASE=nomdevotredatabase
      DB_USERNAME=ton_user
      DB_PASSWORD=ton_mot_de_passe
      ```
 
-5. **Générer la clé d’application**
+6. **Générer la clé d’application**
    ```bash
    php artisan key:generate
    ```
 
-6. **Lancer les migrations et les seeders**
+7. **Lancer les migrations et les seeders**
    ```bash
    php artisan migrate --seed
    ```
 
-7. **Démarrer le serveur**
+8. **Démarrer le serveur**
    ```bash
    php artisan serve
    ```
@@ -139,7 +140,9 @@ L’application est développée avec Laravel, en utilisant une base de données
 ## Créer le premier utilisateur
 
 - Si aucun utilisateur n’existe, créez-en un via l’interface d’inscription ou via un seeder.
-- Exemple de comptes par défaut (si seeders fournis) :
+- Si vous voulez créer un utilisateur admin depuis l'interface d'inscription , remplissez le formulaire puis rendez vous dans la base de données dans la table entraîneur pour modifié le rôle de l'utilisateur créé.
+
+- Exemple de comptes par défaut :
   - **Admin / Responsable planning**
     - Email : admin@lyonpalme.fr
     - Mot de passe : admin123
@@ -152,7 +155,7 @@ L’application est développée avec Laravel, en utilisant une base de données
 ## Utilisation
 
 - Rendez-vous sur [http://localhost:8000](http://localhost:8000) ou l’URL de votre serveur.
-- Connectez-vous avec un compte existant ou créez-en un (selon la configuration).
+- Connectez-vous avec un compte existant ou créez-en un.
 
 ---
 
