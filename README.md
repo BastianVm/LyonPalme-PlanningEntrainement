@@ -1,4 +1,4 @@
-![Logo LyonPalme](public/images/LyonPalme.png)
+![Logo LyonPalme](LPPE/public/images/LyonPalme.png)
 
 # Planning Entraînements - Lyon Palme
 
