@@ -1,43 +1,98 @@
 ![Logo LyonPalme](public/images/LyonPalme.png)
 
-# Planning Entraînement - Lyon Palme
+# Planning Entraînements - Lyon Palme
 
 Application web de gestion des plannings d’entraînements pour le club **Lyon Palme**.
 
+---
+
+## Sommaire
+
+- [Description](#description)
+- [Fonctionnalités principales](#fonctionnalités-principales)
+- [Technologies utilisées](#technologies-utilisées)
+- [Diagrammes & Schémas](#diagrammes--schémas)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Créer le premier utilisateur](#créer-le-premier-utilisateur)
+- [Utilisation](#utilisation)
+- [Auteur](#auteur)
+
+---
+
 ## Description
 
-Cette application permet aux entraîneurs du club de :
-- Consulter leur planning d’entraînements (en tant que coach)
-- Déclarer leurs indisponibilités pour certaines séances
-- Proposer des échanges de séances avec d’autres entraîneurs
+L’objectif de ce projet est de développer une application web de gestion de planning d’entraînements, destinée exclusivement aux entraîneurs du club.  
+Un seul entraîneur est responsable de la création et de la modification du planning, tandis que les autres peuvent uniquement le consulter, signaler leurs indisponibilités sur les créneaux assignés, et proposer des échanges de séances.  
+Seul le responsable du planning peut valider et effectuer les changements.  
+L’application est développée avec Laravel, en utilisant une base de données MariaDB, et respecte la charte graphique du club, inspirée de l’univers marin.
 
-Le responsable du planning peut :
-- Créer, modifier ou supprimer des séances et des entraînements
-- Valider ou refuser les échanges de séances proposés entre entraîneurs
-- Gérer les indisponibilités
+---
+
+## Fonctionnalités principales
+
+- Gestion des séances et des entraînements
+- Consultation du planning personnel (coach)
+- Déclaration d’indisponibilité pour certaines séances
+- Propositions et validation d’échanges de séances entre entraîneurs
+- Gestion des rôles (admin, entraîneur)
+- Sécurité : gestion des mots de passe, traçabilité des accès
+
+---
 
 ## Technologies utilisées
 
-- **Framework** : Laravel (PHP)
-- **Base de données** : MariaDB
-- **Serveur web** : Apache 2
-- **Frontend** : Blade, Tailwind CSS
-- **Autres** : Composer, NPM
+| Nom | Description |
+|-----|-------------|
+| ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white) | Framework PHP |
+| ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white) | Système Linux |
+| ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) | NPM & outils front-end |
+| ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white) | Contrôle de version |
+| ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) | Langage backend |
+| ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white) | Base de données |
+| ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white) | Serveur web |
+| Blade, Tailwind CSS | Frontend |
+
+---
+
+## Diagrammes & Schémas
+
+### Diagramme de cas d'utilisation
+
+![Use_case](https://github.com/user-attachments/assets/9aa65e37-8154-4c9b-ba74-5fb09e90291a)
+
+### Diagramme de séquence
+
+![Diagramme_Séquence_LPPE](https://github.com/user-attachments/assets/a6c25b6a-1fb0-408e-8100-efcaa4e54c3a)
+
+### Schéma relationnel
+
+![Schéma relationnel](https://github.com/user-attachments/assets/8ebd1682-a903-4ac8-869c-bde2fbc0bcca)
+
+### Diagramme de classe
+
+![Diagramme de classe](https://github.com/user-attachments/assets/1767429a-8e40-4e1f-b6c6-b12c89ec8838)
+
+---
 
 ## Prérequis
 
-- PHP >= 8.1
-- Composer
-- Node.js & NPM
-- MariaDB (ou MySQL)
-- Apache 2
+- **PHP** >= 8.1
+- **Composer**
+- **Node.js** & **NPM**
+- **MariaDB** (ou MySQL)
+- **Apache 2**
+- **Debian** (recommandé)
+- **Git**
+
+---
 
 ## Installation
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/ton-utilisateur/ton-repo.git
-   cd ton-repo
+   git clone https://github.com/Fatih471/planningentrainements.git
+   cd planningentrainements
    ```
 
 2. **Installer les dépendances PHP**
@@ -79,30 +134,27 @@ Le responsable du planning peut :
    ```
    Ou configurer Apache pour pointer vers le dossier `public/`.
 
+---
+
+## Créer le premier utilisateur
+
+- Si aucun utilisateur n’existe, créez-en un via l’interface d’inscription ou via un seeder.
+- Exemple de comptes par défaut (si seeders fournis) :
+  - **Admin / Responsable planning**
+    - Email : admin@lyonpalme.fr
+    - Mot de passe : admin123
+  - **Entraîneur**
+    - Email : coach@lyonpalme.fr
+    - Mot de passe : coach123
+
+---
+
 ## Utilisation
 
 - Rendez-vous sur [http://localhost:8000](http://localhost:8000) ou l’URL de votre serveur.
 - Connectez-vous avec un compte existant ou créez-en un (selon la configuration).
 
-### Exemples de comptes
-
-- **Admin / Responsable planning**
-  - Email : admin@lyonpalme.fr
-  - Mot de passe : admin123
-
-- **Entraîneur**
-  - Email : coach@lyonpalme.fr
-  - Mot de passe : coach123
-
-
-## Fonctionnalités principales
-
-- Gestion des séances et des entraînements
-- Consultation du planning personnel
-- Déclaration d’indisponibilité
-- Propositions et validation d’échanges de séances
-- Gestion des rôles (admin, entraîneur)
-- Sécurité : gestion des mots de passe, traçabilité des accès
+---
 
 ## Auteur
 
