@@ -1,3 +1,5 @@
+![Logo LyonPalme](public/images/LyonPalme.png)
+
 # Planning Entraînement - Lyon Palme
 
 Application web de gestion des plannings d’entraînements pour le club **Lyon Palme**.
@@ -92,7 +94,6 @@ Le responsable du planning peut :
   - Email : coach@lyonpalme.fr
   - Mot de passe : coach123
 
-> *(Modifiez ces exemples selon vos besoins)*
 
 ## Fonctionnalités principales
 
@@ -103,14 +104,8 @@ Le responsable du planning peut :
 - Gestion des rôles (admin, entraîneur)
 - Sécurité : gestion des mots de passe, traçabilité des accès
 
-## Captures d’écran
-
-*(À insérer)*
-
 ## Auteur
 
-Club Lyon Palme
+Bastian VIVIER-MERLE, Fatih FAKILI, Aragorn DE-GAUDEMAR-ANCEY
 
 ---
-
-N’hésite pas à compléter ou modifier selon tes besoins !
