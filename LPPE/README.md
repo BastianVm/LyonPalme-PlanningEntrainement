@@ -83,8 +83,8 @@ L’application est développée avec Laravel, en utilisant une base de données
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/pseudoauteur/nomduprojet.git
-   cd planningentrainements
+   git clone https://github.com/BastianVm/LyonPalme-PlanningEntrainement.git
+   cd LyonPalme-PlanningEntrainement
    ```
 2. **Droits fichiers**
    Puis vous devez vous placer dans le projet et accorder les droits à deux fichiers en utilisant les commandes ci-dessous. Assurez-vous de remplacer "votreusername" par votre nom d'utilisateur sur votre machine :
