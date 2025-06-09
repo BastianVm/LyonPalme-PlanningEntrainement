@@ -83,7 +83,7 @@ L’application est développée avec Laravel, en utilisant une base de données
 
 1. **Cloner le dépôt**
    ```bash
-   https://github.com/BastianVm/LyonPalme-PlanningEntrainement.git
+   git clone https://github.com/BastianVm/LyonPalme-PlanningEntrainement.git
    cd LyonPalme-PlanningEntrainement
    ```
 2. **Droits fichiers**
