@@ -59,7 +59,7 @@ L’application est développée avec Laravel, en utilisant une base de données
 
 ### Diagramme de cas d'utilisation
 
-![Use_case](https://github.com/user-attachments/assets/9aa65e37-8154-4c9b-ba74-5fb09e90291a)
+![Use_case](LPPE/public/images/Use_case.png)
 
 ### Base de données
 
