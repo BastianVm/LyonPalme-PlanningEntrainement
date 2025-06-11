@@ -17,11 +17,15 @@
         <input type="time" name="heure_fin" value="{{ old('heure_fin', $seance->heure_fin) }}" required>
         @error('heure_fin') <div>{{ $message }}</div> @enderror
 
-        <label>ID Planning :</label>
-        <input type="number" name="id_planning" value="{{ old('id_planning', $seance->id_planning) }}" required>
-        @error('id_planning') <div>{{ $message }}</div> @enderror
-
-        <!-- Ajoute ici d'autres champs si besoin -->
+        <label>Entraîneur :</label>
+        <select name="id_entraineur" required>
+            @foreach($entraineurs as $entraineur)
+                <option value="{{ $entraineur->id }}" {{ $seance->id_entraineur == $entraineur->id ? 'selected' : '' }}>
+                    {{ $entraineur->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('id_entraineur') <div>{{ $message }}</div> @enderror
 
         <button type="submit">Enregistrer</button>
     </form>

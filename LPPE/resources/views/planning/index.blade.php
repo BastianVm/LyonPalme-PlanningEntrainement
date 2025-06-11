@@ -12,6 +12,38 @@
             .btn-danger { background: #00b4d8; }       /* Bleu clair du logo pour supprimer */
             .btn:hover { opacity: 0.85; }
         </style>
+
+        <!-- Bouton pour afficher/masquer le formulaire -->
+        <button class="btn btn-primary" style="margin-bottom:15px;" onclick="document.getElementById('form-seance').style.display = (document.getElementById('form-seance').style.display === 'none' ? 'block' : 'none');">
+            Créer une séance
+        </button>
+
+        <!-- Formulaire de création de séance -->
+        <div id="form-seance" style="display:none; margin-bottom:20px;">
+            <form action="{{ route('seances.store') }}" method="POST" style="margin-top:10px;">
+                @csrf
+                <label for="id_seance">ID Séance :</label>
+                <select name="id_seance" required>
+                    @foreach($availableIds as $id)
+                        <option value="{{ $id }}">{{ $id }}</option>
+                    @endforeach
+                </select>
+                <label for="date_seance">Date :</label>
+                <input type="date" name="date_seance" required>
+                <label for="heure_debut">Heure début :</label>
+                <input type="time" name="heure_debut" required>
+                <label for="heure_fin">Heure fin :</label>
+                <input type="time" name="heure_fin" required>
+                <label for="id_entraineur">Entraîneur :</label>
+                <select name="id_entraineur" required>
+                    @foreach($entraineurs as $entraineur)
+                        <option value="{{ $entraineur->id }}">{{ $entraineur->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Créer</button>
+            </form>
+        </div>
+
         <div class="table-container">
             <table class="table" style="width:100%; text-align:center;">
                 <thead>

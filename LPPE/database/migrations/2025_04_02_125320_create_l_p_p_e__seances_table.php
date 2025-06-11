@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date_seance');
             $table->time('heure_debut');
             $table->time('heure_fin');
-            $table->unsignedBigInteger('id_planning');
+            $table->unsignedBigInteger('id_planning')->nullable();
             $table->unsignedBigInteger('id_entraineur');
             $table->timestamps();
 

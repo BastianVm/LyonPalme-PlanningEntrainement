@@ -15,8 +15,23 @@ class LPPESeancesController extends Controller
      */
     public function index()
     {
-        $seances = LPPE_Seances::with('entraineur')->get();
-        return view('planning.index', compact('seances'));
+        $seances = \App\Models\LPPE_Seances::with('entraineur')->get();
+
+        // Récupère les id déjà utilisés
+        $usedIds = \App\Models\LPPE_Seances::pluck('id_seance')->toArray();
+
+        // Propose les id de 1 à 100 qui ne sont pas utilisés
+        $availableIds = [];
+        for ($i = 1; $i <= 100; $i++) {
+            if (!in_array($i, $usedIds)) {
+                $availableIds[] = $i;
+            }
+        }
+
+        // Récupère les entraîneurs pour le select
+        $entraineurs = \App\Models\User::whereHas('entraineur')->get();
+
+        return view('planning.index', compact('seances', 'availableIds', 'entraineurs'));
     }
 
     /**
@@ -32,7 +47,17 @@ class LPPESeancesController extends Controller
      */
     public function store(StoreLPPE_SeancesRequest $request)
     {
-        //
+        $request->validate([
+            'id_seance'     => 'required|unique:l_p_p_e__seances,id_seance',
+            'date_seance'   => 'required|date',
+            'heure_debut'   => 'required|date_format:H:i',
+            'heure_fin'     => 'required|date_format:H:i',
+            'id_entraineur' => 'required|integer|exists:users,id',
+        ]);
+
+        \App\Models\LPPE_Seances::create($request->all());
+
+        return redirect()->route('planning.index')->with('success', 'Séance créée avec succès.');
     }
 
     /**
@@ -56,7 +81,11 @@ class LPPESeancesController extends Controller
         ) {
             abort(403, 'Accès réservé aux admins');
         }
-        return view('seances.edit', ['seance' => $seance]);
+
+        // Récupère tous les entraîneurs pour le select
+        $entraineurs = \App\Models\User::whereHas('entraineur')->get();
+
+        return view('seances.edit', ['seance' => $seance, 'entraineurs' => $entraineurs]);
     }
 
     /**
@@ -67,13 +96,13 @@ class LPPESeancesController extends Controller
         $user = auth()->user();
         if (!$user || !$user->hasRole('admin')) {
            abort(403, 'Accès réservé aux admins');
-       }
+        }
 
         $validated = $request->validate([
             'date_seance'   => 'required|date',
-            'heure_debut'   => 'required|date_format:H:i:s',
-            'heure_fin'     => 'required|date_format:H:i:s',
-            'id_planning'   => 'required|integer',
+            'heure_debut'   => 'required|date_format:H:i',
+            'heure_fin'     => 'required|date_format:H:i',
+            'id_entraineur' => 'required|integer|exists:users,id',
         ]);
 
         $seance->update($validated);
@@ -106,9 +135,9 @@ class LPPESeancesController extends Controller
 
         $validated = $request->validate([
             'date_seance'   => 'required|date',
-            'heure_debut'   => 'required|date_format:H:i:s',
-            'heure_fin'     => 'required|date_format:H:i:s',
-            'id_planning'   => 'required|integer',
+            'heure_debut'   => 'required|date_format:H:i',
+            'heure_fin'     => 'required|date_format:H:i',
+            'id_entraineur' => 'required|integer|exists:users,id',
         ]);
 
         $seance->update($validated);

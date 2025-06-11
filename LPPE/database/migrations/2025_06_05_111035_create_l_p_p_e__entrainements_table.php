@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_entrainement');
             $table->string('titre');
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('id_seance');
+            $table->unsignedBigInteger('id_seance')->unique();
             $table->unsignedBigInteger('id_entraineur');
             $table->timestamps();
 
